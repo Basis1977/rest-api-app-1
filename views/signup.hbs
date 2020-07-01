@@ -1,0 +1,15 @@
+{{#if error }}  
+	<center><h2 style="color: red;">{{ message }}</h2></center>
+{{else if success}}  
+	<center><h2 style="color: green;">{{ message }}</h2></center>
+{{/if}}
+<div class="login-form">
+	<h1>Registration Form</h1>
+	<form action="/auth/register" method="POST">
+		<input type="text" name="firstname" placeholder="Firstname" required>
+		<input type="text" name="lastname" placeholder="Lastname" required>
+		<input type="text" name="email" placeholder="Email" required>
+		<input type="password" name="password" placeholder="Password" required>
+		<input type="submit" placeholder="Register">
+	</form>
+</div>

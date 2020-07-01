@@ -1,0 +1,229 @@
+<div class="container mt40">
+    <div class="row">
+        <div class="col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Predict Novel and Common Pathways based on Phylogenetic Pathway Profile</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="panel with-nav-tabs panel-default">
+                        <div class="panel-heading">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                              <li class="active">
+                                <a data-toggle="tab" href="#polygenetic-profile">Phylogenetic profile</a>
+                              </li>
+                              <li>
+                                <a data-toggle="tab" href="#interaction-profile">Interaction Profile</a>
+                              </li>
+                              <li>
+                                <a data-toggle="tab" href="#pathway-profile">Pathway Profile</a>
+                              </li>
+                              <li>
+                                <a data-toggle="tab" href="#uniprot-to-string-id">Uniprot to STRING ID</a>
+                              </li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="polygenetic-profile">
+
+                                    <p>Phylogenetic profiling is a technique used to infer functional linkages between proteins on the basis of their presence across organisms ('profile').</p> 
+                                    <div id="polygenetic-profile-alert-container"></div>
+
+                                    <form action="/home/getPolyGeneticProfile" id="polygenetic-profile-form" class="form-horizontal" method="post">
+                                        <div class="form-group">
+                                            <label for="prot_id" class="col-sm-3 control-label">Protein  <a href="https://string-db.org/" target="_blank">STRING</a> ID :</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" name="prot_id" id="prot_id" placeholder="Protein STRING ID">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgNameDropDown" class="col-sm-3 control-label">Organism Name :</label>
+                                            <div class="col-sm-7">
+                                                <select  name="tax_id" id="txtOrgNameDropDownPhyloProfile" class="form-control select2-single select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                    <option></option>
+                                                    {{#each data}}
+                                                        <option value="{{tax_id}}">{{org_name}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgCategoryDropDown" class="col-sm-3 control-label">Organism Category :</label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" name="org_cate" id="txtOrgCategoryDropDown">
+                                                    <option value="">All Organism Categories (Default)</option>
+                                                    <option value="Archaea">Archaea</option>
+                                                    <option value="Bacteria">Bacteria</option>
+                                                    <option value="Eukaryota">Eukaryota</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-9" style="float: right;">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnGetPhyloProfile">Get PhyloProfile</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="interaction-profile">
+                                    <p>Interaction phylogenetic profiling is an extended phylogenetic profile to pairs of protein using the scored protein links in the <a href="https://string-db.org/" target="_blank">STRING</a> database.</p>
+
+                                    <div id="interaction-profile-alert-container"></div>     
+
+                                    <form id="interaction-profile-form"  action="/home/getInteractionProfile" method="post" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="txtprot_id1" class="col-sm-3 control-label"> Protein <a href="https://string-db.org/" target="_blank">STRING</a> ID 1:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"  name="prot_id1" id="txtprot_id1" placeholder="Protein STRING ID 1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtprot_id2" class="col-sm-3 control-label"> Protein <a href="https://string-db.org/" target="_blank">STRING</a> ID 2:</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"  name="prot_id2" id="txtprot_id2" placeholder="Protein STRING ID 2">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgNameDropDown" class="col-sm-3 control-label">Organism Name :</label>
+                                            <div class="col-sm-7">
+                                                <!--select name="tax_id" data-placeholder="Select Organisms" class="chosen-select" tabindex="8" id="txtOrgNameDropDown"-->
+                                                <select name="tax_id" id="txtOrgNameDropDownIntProfile" class="form-control select2-single select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                    <option></option>
+                                                    {{#each data}}
+                                                        <option value="{{tax_id}}">{{org_name}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgCategoryDropDown" class="col-sm-3 control-label">Organism Category :</label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" name="org_cate" id="txtOrgCategoryDropDown">
+                                                    <option value="">All Organism Categories (Default)</option>
+                                                    <option value="Archaea">Archaea</option>
+                                                    <option value="Bacteria">Bacteria</option>
+                                                    <option value="Eukaryota">Eukaryota</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-9" style="float: right;">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnGetInteractionPhyloProfile">Get InteractionPhyloProfile</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="pathway-profile">
+                                    <p>Pathway phylogenetic profiling is an extended phylogenetic profile to many proteins using the scored protein links in the <a href="https://string-db.org/" target="_blank">STRING</a> database.</p>
+                                    <div id="pathway-profile-alert-container"></div>    
+
+                                    <form id="pathway-profile-form" method="post" action="/home/getPathwayProfile"class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="txtprot_id" class="col-sm-3 control-label"><a href="https://string-db.org/" target="_blank">STRING</a> ID of all Proteins (<= 15):</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"  name="prot_id" id="txtprot_id" placeholder="Please provide comma seperated Protein STRING ID's ">
+                                                <small class="text-muted">(For example: Rv0001, Rv0002, Rv0003, etc.,)</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtscore" class="col-sm-3 control-label">Score :</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"  name="score" id="txtscore" placeholder="Please provide score in range of 0-1000 ">
+                                                <small class="text-muted">(For more details please refer scoring scheme)</small>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgNameDropDown" class="col-sm-3 control-label">Organism Name :</label>
+                                            <div class="col-sm-7">
+                                                <select name="tax_id" id="txtOrgNameDropDownPathwayProfile" class="form-control select2-single select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                    <option></option>
+                                                    {{#each data}}
+                                                        <option value="{{tax_id}}">{{org_name}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="txtOrgCategoryDropDown" class="col-sm-3 control-label">Organism Category :</label>
+                                            <div class="col-sm-7">
+                                                <select class="form-control" name="org_cate" id="txtOrgCategoryDropDown">
+                                                    <option value="">All Organism Categories (Default)</option>
+                                                    <option value="Archaea">Archaea</option>
+                                                    <option value="Bacteria">Bacteria</option>
+                                                    <option value="Eukaryota">Eukaryota</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-9" style="float: right;">
+                                                <button type="button" class="btn btn-primary" id="btnGetPathwayProfile" data-dismiss="modal">Get PathwayPhyloProfile</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="tab-pane fade" id="uniprot-to-string-id">
+                                    <p>UNIPROT to STRING ID mapping enables you to obtain <a href="https://string-db.org/" target="_blank">STRING</a> ID for your corresponding <a href="http://www.uniprot.org/" target="_blank">UniProt</a> ID across 417 'core' organisms.</p>
+
+                                    <div id="uniprot-alert-container"></div>
+                                    <form id="uniprot-to-string-form" action="/home/getUniProtein" method="post" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label for="txtuniprot_id" class="col-sm-3 control-label">Protein  <a href="http://www.uniprot.org/" target="_blank">UniProt</a> ID :</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"  name="uniprot_id" id="txtuniprot_id" placeholder="Protein UniProt ID">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-9" style="float: right;">
+                                                <button type="button" class="btn btn-primary" id="btnGetUniProt" data-dismiss="modal">Get STRING ID</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="panel with-nav-tabs panel-default">
+                        <div class="panel-heading">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                              <li class="active">
+                                <a data-toggle="tab" href="#funding">Funding</a>
+                              </li>
+                              <li>
+                                <a data-toggle="tab" href="#acknowledgement">Acknowledgement</a>
+                              </li>
+                              <li>
+                                <a data-toggle="tab" href="#documentation">Documentation</a>
+                              </li>
+                              <li>
+                                <a data-toggle="tab" href="#contact-us">Contact Us</a>
+                              </li>
+                            </ul>
+                        </div>
+                         <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane  fade in active" id="funding">
+                                    <img style="width:100px; height:100px; display:block; float:left;" src="images/iitm.JPG" />
+                                    <p style="height:50px; padding-top: 25px;"> Funding from IIT Madras,Department of Biotechnology,Government of India, and the seed grant BIO/12-13/579/NFSC/KARH from IC&amp;SR are gratefully acknowledged. 
+                                    </p>
+                                </div>
+                                <div class="tab-pane fade in" id="acknowledgement">
+                                    <p>We thank Dr. Saketha Nath (IIT Bombay) and Dr. Balaraman Ravindran (CSE, IITM) for useful discussions.We would like to thank Mr.Irudayaraj for helping us to host this site.Use of the High Performance Computing Facilities at IIT Madras are also gratefully acknowledged.</p>
+                                </div>
+                                <div class="tab-pane fade in" id="documentation">
+                                    <p>For more information,please refer <a href ="">Interaction Phylogentic Profiling.</a></p>
+                                </div>
+                                <div class="tab-pane fade in" id="contact-us">
+                                    <p>For any queries, suggestions, and feedback, please email us<br><img style="display:block; float:left;" src="images/mail.Png" /></br></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>      
+</div>
