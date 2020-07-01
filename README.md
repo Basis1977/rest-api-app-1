@@ -11,7 +11,7 @@ Built using Expressjs.
 - Create Database named "rest-api"
 
 ```
-git clone https://github.com/sreeni/rest-api-app/
+git clone https://github.com/Basis1977/rest-api-app/
 cd rest-api-app
 npm install
 ```
