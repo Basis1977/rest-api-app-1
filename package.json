@@ -19,7 +19,7 @@
     "hbs": "~3.1.0",
     "http-errors": "~1.6.3",
     "joi": "^14.0.6",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.10.6",
     "mongoose": "^5.3.11",
     "morgan": "~1.9.1",
